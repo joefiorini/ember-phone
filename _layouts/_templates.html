@@ -1,0 +1,33 @@
+<script type="text/x-handlebars" data-template-name="components/keypad-button">
+  {{number}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="components/keypad">
+  <div class="row">
+    {{keypad-button number=1 action="numberEntered"}}
+    {{keypad-button number=2 action="numberEntered"}}
+    {{keypad-button number=3 action="numberEntered"}}
+  </div>
+  <div class="row">
+    {{keypad-button number=4 action="numberEntered"}}
+    {{keypad-button number=5 action="numberEntered"}}
+    {{keypad-button number=6 action="numberEntered"}}
+  </div>
+  <div class="row">
+    {{keypad-button number=7 action="numberEntered"}}
+    {{keypad-button number=8 action="numberEntered"}}
+    {{keypad-button number=9 action="numberEntered"}}
+  </div>
+  <div class="row">
+    {{keypad-button number="*" action="numberEntered"}}
+    {{keypad-button number=0 action="numberEntered"}}
+    {{keypad-button number="#" action="numberEntered"}}
+  </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="call/new">
+  Pressed: {{number}}
+  {{phoneNumber}}
+  {{keypad action="numberEntered"}}
+</script>
+
