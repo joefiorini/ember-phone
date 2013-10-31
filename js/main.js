@@ -28,14 +28,27 @@ App.KeypadButtonComponent = Ember.Component.extend({
 
     this.set('audioElement', audio);
   },
+  playTone: function() {
+    if(!this.get('playingTone')) {
+      this.get('audioElement').play();
+      this.toggleProperty('playingTone');
+    }
+  },
+  stopTone: function() {
+    if(this.get('playingTone')) {
+      this.get('audioElement').pause();
+      this.get('audioElement').currentTime = 0;
+      this.toggleProperty('playingTone');
+    }
+  },
   mouseDown: function() {
-    this.get('audioElement').play();
+    this.playTone();
   },
   mouseUp: function() {
-    this.get('audioElement').pause();
-    this.get('audioElement').currentTime = 0;
+    this.stopTone();
   },
   click: function() {
+    this.playTone();
     this.sendAction('action', this.get('number'));
   }
 });
@@ -50,7 +63,6 @@ App.KeypadComponent = Ember.Component.extend({
 
 App.PhoneNumberController = Ember.ArrayController.extend({
   stringValue: function() {
-    console.log('calculating stringValue');
     if(this.get("length") > 3 && this.get("length") <= 7) {
       var prefix = this.get('content').slice(0, 3).join(""),
           exchange = this.get('content').slice(3, 7).join("");
