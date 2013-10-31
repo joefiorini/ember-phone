@@ -15,6 +15,8 @@ App.ApplicationRoute = Ember.Route.extend({
 App.KeypadButtonComponent = Ember.Component.extend({
   tagName: "button",
   classNames: ["keypad-button"],
+  attributeBindings: ["accesskey"],
+  accesskey: Ember.computed.defaultTo("number"),
   click: function() {
     this.sendAction('action', this.get('number'));
   }
