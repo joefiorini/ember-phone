@@ -39,13 +39,13 @@
   </div>
 </script>
 
-<script type="text/x-handlebars" data-template-name="contacts/index">
-  {{#link-to "contacts.new" tagName="button"}}+{{/link-to}}
+<script type="text/x-handlebars" data-template-name="contact/index">
+  {{#link-to "contact.new" tagName="button"}}+{{/link-to}}
 
   <ul>
     {{#each contact in controller}}
     <li>
-      {{#link-to "contacts.show" contact class="row"}}
+      {{#link-to "contact.show" contact class="row"}}
       <span>{{contact.firstName}} <strong>{{contact.lastName}}</strong></span>
       {{/link-to}}
     </li>
@@ -53,17 +53,17 @@
   </ul>
 </script>
 
-<script type="text/x-handlebars" data-template-name="contacts/show">
+<script type="text/x-handlebars" data-template-name="contact/show">
   <h2>{{firstName}} {{lastName}}</h2>
   {{#if company}}
   <h3>{{company}}</h3>
   {{/if}}
 
   <ul>
-  {{#each number in phoneNumbers}}
+  {{#each number in formattedPhoneNumbers}}
     <li>
       <span class="label">{{number.label}}</span>
-      <span class="main">{{number.number}}</span>
+      <span class="main">{{number.stringValue}}</span>
     </li>
   {{/each}}
   </ul>
@@ -76,7 +76,7 @@
   {{outlet}}
   </div>
   <div class="row">
-    {{#link-to "contacts"}}Contacts{{/link-to}}
+    {{#link-to "contact"}}Contacts{{/link-to}}
   </div>
 </script>
 

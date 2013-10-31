@@ -23,9 +23,9 @@ App.Router.map(function() {
     this.route("new", {path: "/keypad"});
   });
 
-  this.resource("contacts", function() {
+  this.resource("contact", function() {
     this.route("new");
-    this.route("show", {path: "/:contactId"});
+    this.route("show", {path: "/:contact_id"});
   });
 });
 
@@ -53,51 +53,40 @@ App.Contact = DS.Model.extend({
 
 App.PhoneNumber = DS.Model.extend({
   number: DS.attr("string"),
-  label:  DS.attr("string")
+  label:  DS.attr("string"),
+  contact: DS.belongsTo("contact")
 });
 
-App.ContactsIndexRoute = Ember.Route.extend({
+App.ContactIndexRoute = Ember.Route.extend({
   model: function() {
     return this.store.find("contact");
   }
 });
 
-App.ContactsIndexController = Ember.ArrayController.extend({
+App.ContactIndexController = Ember.ArrayController.extend({
+  itemController: "contactShow",
   sortProperties: ["lastName", "firstName"]
 });
 
-//
-// ==========================================================================
-//
-//
-// CALLS
-// ==========================================================================
-//
-
-App.CallNewController = Ember.Controller.extend({
-  needs: ["phoneNumber"],
-  phoneNumber: Ember.computed.alias("controllers.phoneNumber.stringValue"),
-  hasEntries: Ember.computed.gt("controllers.phoneNumber.length", 0),
-
-  actions: {
-    numberEntered: function(number) {
-      this.set('number', number);
-      this.get("controllers.phoneNumber").pushObject(number);
-    },
-    removeNumber: function() {
-      this.get('controllers.phoneNumber').popObject();
-    },
-    addToContacts: function() {
-      alert("Not functional yet");
-    },
-    placeCall: function() {
-      alert("Not functional yet");
-    }
-  }
-
+App.ContactShowController = Ember.ObjectController.extend({
+  formattedPhoneNumbers: function() {
+    var controller = this;
+    var promise = this.get("phoneNumbers").then(function(numbers) {
+      return numbers.map(function(phoneNumber) {
+        var factory = controller.container.lookupFactory("controller:formattedPhoneNumber");
+        return factory.create({
+          content: phoneNumber.get('number').split(""),
+          label: phoneNumber.get('label')
+        });
+      });
+    });
+    return DS.PromiseArray.create({
+      promise: promise
+    });
+  }.property("phoneNumbers")
 });
 
-App.PhoneNumberController = Ember.ArrayController.extend({
+App.FormattedPhoneNumberController = Ember.ArrayController.extend({
   stringValue: function() {
     if(this.get("length") > 3 && this.get("length") <= 7) {
       var prefix = this.get('content').slice(0, 3).join(""),
@@ -114,6 +103,36 @@ App.PhoneNumberController = Ember.ArrayController.extend({
       return this.get("content").join("");
     }
   }.property("content.[]")
+});
+
+//
+// ==========================================================================
+//
+//
+// CALLS
+// ==========================================================================
+//
+
+App.CallNewController = Ember.Controller.extend({
+  needs: ["formattedPhoneNumber"],
+  phoneNumber: Ember.computed.alias("controllers.formattedPhoneNumber.stringValue"),
+  hasEntries: Ember.computed.gt("controllers.formattedPhoneNumber.length", 0),
+
+  actions: {
+    numberEntered: function(number) {
+      this.set('number', number);
+      this.get("controllers.formattedPhoneNumber").pushObject(number);
+    },
+    removeNumber: function() {
+      this.get('controllers.formattedPhoneNumber').popObject();
+    },
+    addToContacts: function() {
+      alert("Not functional yet");
+    },
+    placeCall: function() {
+      alert("Not functional yet");
+    }
+  }
 });
 
 App.KeypadComponent = Ember.Component.extend({
