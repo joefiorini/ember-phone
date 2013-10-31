@@ -44,6 +44,15 @@ App.ApplicationRoute = Ember.Route.extend({
   }
 });
 
+App.ContactsIndexRoute = Ember.Route.extend({
+  model: function() {
+    return this.store.find("contact");
+  }
+});
+
+App.ContactsIndexController = Ember.ArrayController.extend({
+});
+
 App.KeypadButtonComponent = Ember.Component.extend({
   tagName: "button",
   classNames: ["keypad-button"],
