@@ -4,6 +4,8 @@ App.Router.map(function() {
   this.resource("call", {path: "/"}, function() {
     this.route("new", {path: "/keypad"});
   });
+
+  this.resource("contacts");
 });
 
 App.ApplicationRoute = Ember.Route.extend({
