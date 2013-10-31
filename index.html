@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="iOS Phone.app written in Ember.js" />
+<meta charset="utf-8">
+<title>Ember Starter Kit</title>
+  <link rel="stylesheet" href="/styles/styles.css">
+  <script type="text/x-handlebars" data-template-name="components/keypad-button">
+  {{number}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="components/keypad">
+  <div class="row">
+    {{keypad-button number=1 action="numberEntered"}}
+    {{keypad-button number=2 action="numberEntered"}}
+    {{keypad-button number=3 action="numberEntered"}}
+  </div>
+  <div class="row">
+    {{keypad-button number=4 action="numberEntered"}}
+    {{keypad-button number=5 action="numberEntered"}}
+    {{keypad-button number=6 action="numberEntered"}}
+  </div>
+  <div class="row">
+    {{keypad-button number=7 action="numberEntered"}}
+    {{keypad-button number=8 action="numberEntered"}}
+    {{keypad-button number=9 action="numberEntered"}}
+  </div>
+  <div class="row">
+    {{keypad-button number="*" action="numberEntered"}}
+    {{keypad-button number=0 action="numberEntered"}}
+    {{keypad-button number="#" action="numberEntered"}}
+  </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="call/new">
+  {{phoneNumber}}
+  {{#if hasEntries}}
+    <button {{action removeNumber}}><-</button>
+    <div class="row">
+      <button {{action addToContacts}}>Add to Contacts</button>
+    </div>
+  {{/if}}
+  {{keypad action="numberEntered"}}
+  <div class="row">
+    <button {{action placeCall}}>Call</button>
+  </div>
+</script>
+
+
+</head>
+<body>
+
+  
+<audio src="http://files.densitypop.com/DTMF-0.mp3" id="dtmf-0" preload="auto"></audio>
+
+<audio src="http://files.densitypop.com/DTMF-1.mp3" id="dtmf-1" preload="auto"></audio>
+
+<audio src="http://files.densitypop.com/DTMF-2.mp3" id="dtmf-2" preload="auto"></audio>
+
+<audio src="http://files.densitypop.com/DTMF-3.mp3" id="dtmf-3" preload="auto"></audio>
+
+<audio src="http://files.densitypop.com/DTMF-4.mp3" id="dtmf-4" preload="auto"></audio>
+
+<audio src="http://files.densitypop.com/DTMF-5.mp3" id="dtmf-5" preload="auto"></audio>
+
+<audio src="http://files.densitypop.com/DTMF-6.mp3" id="dtmf-6" preload="auto"></audio>
+
+<audio src="http://files.densitypop.com/DTMF-7.mp3" id="dtmf-7" preload="auto"></audio>
+
+<audio src="http://files.densitypop.com/DTMF-8.mp3" id="dtmf-8" preload="auto"></audio>
+
+<audio src="http://files.densitypop.com/DTMF-9.mp3" id="dtmf-9" preload="auto"></audio>
+
+  <audio src="http://files.densitypop.com/DTMF-pound.mp3" id="dtmf-pound"></audio>
+  <audio src="http://files.densitypop.com/DTMF-star.mp3" id="dtmf-star"></audio>
+
+
+
+  
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://builds.emberjs.com/handlebars-1.0.0.js"></script>
+  <script src="http://builds.emberjs.com/tags/v1.1.1/ember.min.js"></script>
+  <script src="/js/main.js"></script>
+
+</body>
+</html>
+
