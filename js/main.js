@@ -38,7 +38,7 @@ App.KeypadButtonComponent = Ember.Component.extend({
     if(this.get('playingTone')) {
       this.get('audioElement').pause();
       this.get('audioElement').currentTime = 0;
-      this.toggleProperty('playingTone');
+      Ember.run.next(this, 'toggleProperty', 'playingTone');
     }
   },
   mouseDown: function() {
