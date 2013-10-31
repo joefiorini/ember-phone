@@ -17,6 +17,24 @@ App.KeypadButtonComponent = Ember.Component.extend({
   classNames: ["keypad-button"],
   attributeBindings: ["accesskey"],
   accesskey: Ember.computed.defaultTo("number"),
+  didInsertElement: function() {
+    var number = this.get('number');
+    if(number == '*') {
+      number = 'star';
+    } else if (number == '#') {
+      number = 'pound';
+    }
+    var audio = $('#dtmf-' + number)[0];
+
+    this.set('audioElement', audio);
+  },
+  mouseDown: function() {
+    this.get('audioElement').play();
+  },
+  mouseUp: function() {
+    this.get('audioElement').pause();
+    this.get('audioElement').currentTime = 0;
+  },
   click: function() {
     this.sendAction('action', this.get('number'));
   }
