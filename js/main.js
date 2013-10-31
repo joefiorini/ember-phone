@@ -51,10 +51,16 @@ App.PhoneNumberController = Ember.ArrayController.extend({
 App.CallNewController = Ember.Controller.extend({
   needs: ["phoneNumber"],
   phoneNumber: Ember.computed.alias("controllers.phoneNumber.stringValue"),
+  hasEntries: Ember.computed.gt("controllers.phoneNumber.length", 0),
+
   actions: {
     numberEntered: function(number) {
       this.set('number', number);
       this.get("controllers.phoneNumber").pushObject(number);
+    },
+    removeNumber: function() {
+      this.get('controllers.phoneNumber').popObject();
     }
   }
+
 });

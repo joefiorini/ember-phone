@@ -27,6 +27,9 @@
 
 <script type="text/x-handlebars" data-template-name="call/new">
   {{phoneNumber}}
+  {{#if hasEntries}}
+    <button {{action removeNumber}}><-</button>
+  {{/if}}
   {{keypad action="numberEntered"}}
 </script>
 
