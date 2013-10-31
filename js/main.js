@@ -25,6 +25,7 @@ App.Router.map(function() {
 
   this.resource("contacts", function() {
     this.route("new");
+    this.route("show", {path: "/:contactId"});
   });
 });
 
@@ -43,15 +44,16 @@ App.ApplicationRoute = Ember.Route.extend({
 //
 
 App.Contact = DS.Model.extend({
-  firstName: DS.attr("string"),
-  lastName: DS.attr("string"),
-  company: DS.attr("string"),
+  firstName:    DS.attr("string"),
+  lastName:     DS.attr("string"),
+  company:      DS.attr("string"),
+  notes:        DS.attr("string"),
   phoneNumbers: DS.hasMany("phoneNumber", {async: true})
 });
 
 App.PhoneNumber = DS.Model.extend({
   number: DS.attr("string"),
-  label: DS.attr("string")
+  label:  DS.attr("string")
 });
 
 App.ContactsIndexRoute = Ember.Route.extend({

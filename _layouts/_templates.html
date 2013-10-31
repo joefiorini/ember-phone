@@ -45,10 +45,30 @@
   <ul>
     {{#each contact in controller}}
     <li>
+      {{#link-to "contacts.show" contact class="row"}}
       <span>{{contact.firstName}} <strong>{{contact.lastName}}</strong></span>
+      {{/link-to}}
     </li>
     {{/each}}
   </ul>
+</script>
+
+<script type="text/x-handlebars" data-template-name="contacts/show">
+  <h2>{{firstName}} {{lastName}}</h2>
+  {{#if company}}
+  <h3>{{company}}</h3>
+  {{/if}}
+
+  <ul>
+  {{#each number in phoneNumbers}}
+    <li>
+      <span class="label">{{number.label}}</span>
+      <span class="main">{{number.number}}</span>
+    </li>
+  {{/each}}
+  </ul>
+
+  {{notes}}
 </script>
 
 <script type="text/x-handlebars" data-template-name="application">
