@@ -18,14 +18,33 @@ App.PhoneNumber.FIXTURES = [{
   id: 1,
   number: "1234567890",
   label: "home"
+}, {
+  id: 2,
+  number: "1234567890",
+  label: "home"
 }];
 
 App.Contact.FIXTURES = [{
   id: 1,
+  firstName: "Lindsay",
+  lastName: "Fünke",
+  phoneNumbers: [1]
+}, {
+  id: 2,
   firstName: "Michael",
   lastName: "Bluth",
   company: "Bluth Construction",
-  phoneNumbers: [1]
+  phoneNumbers: [2]
+}, {
+  id: 3,
+  firstName: "Lucille",
+  lastName: "Bluth",
+  company: "Bluth Construction"
+}, {
+  id: 4,
+  firstName: "Lucille",
+  lastName: "Austero",
+  company: "Standpoor Industries"
 }];
 
 App.Router.map(function() {
@@ -51,6 +70,7 @@ App.ContactsIndexRoute = Ember.Route.extend({
 });
 
 App.ContactsIndexController = Ember.ArrayController.extend({
+  sortProperties: ["lastName", "firstName"]
 });
 
 App.KeypadButtonComponent = Ember.Component.extend({
