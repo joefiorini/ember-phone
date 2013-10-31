@@ -29,6 +29,9 @@
   {{phoneNumber}}
   {{#if hasEntries}}
     <button {{action removeNumber}}><-</button>
+    <div class="row">
+      <button {{action addToContacts}}>Add to Contacts</button>
+    </div>
   {{/if}}
   {{keypad action="numberEntered"}}
 </script>

@@ -60,6 +60,9 @@ App.CallNewController = Ember.Controller.extend({
     },
     removeNumber: function() {
       this.get('controllers.phoneNumber').popObject();
+    },
+    addToContacts: function() {
+      alert("Not functional yet");
     }
   }
 
