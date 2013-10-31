@@ -1,5 +1,33 @@
 App = Ember.Application.create();
 
+App.ApplicationAdapter = DS.FixtureAdapter.extend();
+
+App.PhoneNumber = DS.Model.extend({
+  number: DS.attr("string"),
+  label: DS.attr("string")
+});
+
+App.Contact = DS.Model.extend({
+  firstName: DS.attr("string"),
+  lastName: DS.attr("string"),
+  company: DS.attr("string"),
+  phoneNumbers: DS.hasMany("phoneNumber", {async: true})
+});
+
+App.PhoneNumber.FIXTURES = [{
+  id: 1,
+  number: "1234567890",
+  label: "home"
+}];
+
+App.Contact.FIXTURES = [{
+  id: 1,
+  firstName: "Michael",
+  lastName: "Bluth",
+  company: "Bluth Construction",
+  phoneNumbers: [1]
+}];
+
 App.Router.map(function() {
   this.resource("call", {path: "/"}, function() {
     this.route("new", {path: "/keypad"});
