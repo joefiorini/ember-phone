@@ -1,51 +1,22 @@
+// ==========================================================================
+//
+// Project: Ember Phone
+// An Ember app that approximates iOS7's Phone.app.
+//
+// Author:  Joe Fiorini <joe@joefiorini.com>
+// URL:     http://joefiorini.github.io/ember-phone
+// Repo:    https://github.com/joefiorini/ember-phone
+//
+// ==========================================================================
+//
+//
+// APPLICATION SETUP
+// ==========================================================================
+//
+
 App = Ember.Application.create();
 
 App.ApplicationAdapter = DS.FixtureAdapter.extend();
-
-App.PhoneNumber = DS.Model.extend({
-  number: DS.attr("string"),
-  label: DS.attr("string")
-});
-
-App.Contact = DS.Model.extend({
-  firstName: DS.attr("string"),
-  lastName: DS.attr("string"),
-  company: DS.attr("string"),
-  phoneNumbers: DS.hasMany("phoneNumber", {async: true})
-});
-
-App.PhoneNumber.FIXTURES = [{
-  id: 1,
-  number: "1234567890",
-  label: "home"
-}, {
-  id: 2,
-  number: "1234567890",
-  label: "home"
-}];
-
-App.Contact.FIXTURES = [{
-  id: 1,
-  firstName: "Lindsay",
-  lastName: "Fünke",
-  phoneNumbers: [1]
-}, {
-  id: 2,
-  firstName: "Michael",
-  lastName: "Bluth",
-  company: "Bluth Construction",
-  phoneNumbers: [2]
-}, {
-  id: 3,
-  firstName: "Lucille",
-  lastName: "Bluth",
-  company: "Bluth Construction"
-}, {
-  id: 4,
-  firstName: "Lucille",
-  lastName: "Austero",
-  company: "Standpoor Industries"
-}];
 
 App.Router.map(function() {
   this.resource("call", {path: "/"}, function() {
@@ -63,6 +34,26 @@ App.ApplicationRoute = Ember.Route.extend({
   }
 });
 
+//
+// ==========================================================================
+//
+//
+// CONTACTS
+// ==========================================================================
+//
+
+App.Contact = DS.Model.extend({
+  firstName: DS.attr("string"),
+  lastName: DS.attr("string"),
+  company: DS.attr("string"),
+  phoneNumbers: DS.hasMany("phoneNumber", {async: true})
+});
+
+App.PhoneNumber = DS.Model.extend({
+  number: DS.attr("string"),
+  label: DS.attr("string")
+});
+
 App.ContactsIndexRoute = Ember.Route.extend({
   model: function() {
     return this.store.find("contact");
@@ -71,6 +62,64 @@ App.ContactsIndexRoute = Ember.Route.extend({
 
 App.ContactsIndexController = Ember.ArrayController.extend({
   sortProperties: ["lastName", "firstName"]
+});
+
+//
+// ==========================================================================
+//
+//
+// CALLS
+// ==========================================================================
+//
+
+App.CallNewController = Ember.Controller.extend({
+  needs: ["phoneNumber"],
+  phoneNumber: Ember.computed.alias("controllers.phoneNumber.stringValue"),
+  hasEntries: Ember.computed.gt("controllers.phoneNumber.length", 0),
+
+  actions: {
+    numberEntered: function(number) {
+      this.set('number', number);
+      this.get("controllers.phoneNumber").pushObject(number);
+    },
+    removeNumber: function() {
+      this.get('controllers.phoneNumber').popObject();
+    },
+    addToContacts: function() {
+      alert("Not functional yet");
+    },
+    placeCall: function() {
+      alert("Not functional yet");
+    }
+  }
+
+});
+
+App.PhoneNumberController = Ember.ArrayController.extend({
+  stringValue: function() {
+    if(this.get("length") > 3 && this.get("length") <= 7) {
+      var prefix = this.get('content').slice(0, 3).join(""),
+          exchange = this.get('content').slice(3, 7).join("");
+
+      return "%@-%@".fmt(prefix, exchange);
+    } else if(this.get("length") > 7 && this.get("length") <= 10) {
+      var areaCode = this.get('content').slice(0, 3).join(""),
+          prefix = this.get('content').slice(3, 6).join(""),
+          exchange = this.get('content').slice(6, 11).join("");
+
+      return "(%@) %@-%@".fmt(areaCode, prefix, exchange);
+    } else {
+      return this.get("content").join("");
+    }
+  }.property("content.[]")
+});
+
+App.KeypadComponent = Ember.Component.extend({
+  actions: {
+    numberEntered: function(number) {
+      this.sendAction('action', number);
+    }
+  }
 });
 
 App.KeypadButtonComponent = Ember.Component.extend({
@@ -114,52 +163,46 @@ App.KeypadButtonComponent = Ember.Component.extend({
   }
 });
 
-App.KeypadComponent = Ember.Component.extend({
-  actions: {
-    numberEntered: function(number) {
-      this.sendAction('action', number);
-    }
-  }
-});
+//
+// ==========================================================================
+//
+//
+// TEST DATA
+// ==========================================================================
+//
 
-App.PhoneNumberController = Ember.ArrayController.extend({
-  stringValue: function() {
-    if(this.get("length") > 3 && this.get("length") <= 7) {
-      var prefix = this.get('content').slice(0, 3).join(""),
-          exchange = this.get('content').slice(3, 7).join("");
+App.PhoneNumber.FIXTURES = [{
+  id: 1,
+  number: "1234567890",
+  label: "home"
+}, {
+  id: 2,
+  number: "1234567890",
+  label: "home"
+}];
 
-      return "%@-%@".fmt(prefix, exchange);
-    } else if(this.get("length") > 7 && this.get("length") <= 10) {
-      var areaCode = this.get('content').slice(0, 3).join(""),
-          prefix = this.get('content').slice(3, 6).join(""),
-          exchange = this.get('content').slice(6, 11).join("");
+App.Contact.FIXTURES = [{
+  id: 1,
+  firstName: "Lindsay",
+  lastName: "Fünke",
+  phoneNumbers: [1]
+}, {
+  id: 2,
+  firstName: "Michael",
+  lastName: "Bluth",
+  company: "Bluth Construction",
+  phoneNumbers: [2]
+}, {
+  id: 3,
+  firstName: "Lucille",
+  lastName: "Bluth",
+  company: "Bluth Construction"
+}, {
+  id: 4,
+  firstName: "Lucille",
+  lastName: "Austero",
+  company: "Standpoor Industries"
+}];
 
-      return "(%@) %@-%@".fmt(areaCode, prefix, exchange);
-    } else {
-      return this.get("content").join("");
-    }
-  }.property("content.[]")
-});
-
-App.CallNewController = Ember.Controller.extend({
-  needs: ["phoneNumber"],
-  phoneNumber: Ember.computed.alias("controllers.phoneNumber.stringValue"),
-  hasEntries: Ember.computed.gt("controllers.phoneNumber.length", 0),
-
-  actions: {
-    numberEntered: function(number) {
-      this.set('number', number);
-      this.get("controllers.phoneNumber").pushObject(number);
-    },
-    removeNumber: function() {
-      this.get('controllers.phoneNumber').popObject();
-    },
-    addToContacts: function() {
-      alert("Not functional yet");
-    },
-    placeCall: function() {
-      alert("Not functional yet");
-    }
-  }
-
-});
+//
+// ==========================================================================
