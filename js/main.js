@@ -63,6 +63,9 @@ App.CallNewController = Ember.Controller.extend({
     },
     addToContacts: function() {
       alert("Not functional yet");
+    },
+    placeCall: function() {
+      alert("Not functional yet");
     }
   }
 
