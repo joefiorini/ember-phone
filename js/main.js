@@ -49,17 +49,19 @@ App.KeypadComponent = Ember.Component.extend({
 });
 
 App.PhoneNumberController = Ember.ArrayController.extend({
-  contentDidChange: function() {
-    this.set('areaCode', this.get('content').slice(0, 3).join(""));
-    this.set('prefix', this.get('content').slice(3, 6).join(""));
-    this.set('exchange', this.get('content').slice(6, 11).join(""));
-  }.observes('content.[]'),
   stringValue: function() {
     console.log('calculating stringValue');
-    if(this.get("length") > 3 && this.get("length") <= 6) {
-      return "%@-%@".fmt(this.get("areaCode"), this.get("prefix"));
-    } else if(this.get("length") > 6 && this.get("length") <= 10) {
-      return "(%@) %@-%@".fmt(this.get("areaCode"), this.get("prefix"), this.get("exchange"));
+    if(this.get("length") > 3 && this.get("length") <= 7) {
+      var prefix = this.get('content').slice(0, 3).join(""),
+          exchange = this.get('content').slice(3, 7).join("");
+
+      return "%@-%@".fmt(prefix, exchange);
+    } else if(this.get("length") > 7 && this.get("length") <= 10) {
+      var areaCode = this.get('content').slice(0, 3).join(""),
+          prefix = this.get('content').slice(3, 6).join(""),
+          exchange = this.get('content').slice(6, 11).join("");
+
+      return "(%@) %@-%@".fmt(areaCode, prefix, exchange);
     } else {
       return this.get("content").join("");
     }
