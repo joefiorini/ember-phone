@@ -88,6 +88,9 @@ App.ContactShowController = Ember.ObjectController.extend({
 
 App.ContactNewController = Ember.ObjectController.extend({
   actions: {
+    buildPhoneNumber: function() {
+      this.get("phoneNumbers.content").createRecord();
+    },
     save: function() {
       this.get("content").save();
       this.transitionToRoute("contact.index");
@@ -200,6 +203,24 @@ App.KeypadButtonComponent = Ember.Component.extend({
 // ==========================================================================
 //
 //
+// REUSABLE COMPONENTS
+// ==========================================================================
+//
+
+App.SelectListComponent = Ember.Component.extend({
+  tagName: "select",
+  didInsertElement: function() {
+    this.set("value", this.$().val());
+  },
+  change: function(e) {
+    this.set("value", this.$().val());
+  }
+});
+
+//
+// ==========================================================================
+//
+//
 // TEST DATA
 // ==========================================================================
 //
@@ -236,6 +257,22 @@ App.Contact.FIXTURES = [{
   lastName: "Austero",
   company: "Standpoor Industries"
 }];
+
+App.PHONE_NUMBER_LABELS = ["home", "work", "iPhone", "mobile", "main", "home fax", "work fax", "pager", "other"];
+
+var get = Ember.get;
+DS.JSONSerializer.reopen({
+  serializeHasMany: function(record, json, relationship) {
+    var key = relationship.key;
+
+    var relationshipType = DS.RelationshipChange.determineRelationshipType(record.constructor, relationship);
+
+    if (relationshipType === 'manyToNone' || relationshipType === 'manyToMany' || relationshipType === 'manyToOne') {
+      json[key] = get(record, key).mapBy('id');
+      // TODO support for polymorphic manyToNone and manyToMany relationships
+    }
+  }
+});
 
 //
 // ==========================================================================

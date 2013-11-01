@@ -80,9 +80,19 @@
     {{input type="text" value=lastName placeholder="Last"}}
     {{input type="text" value=company placeholder="Company"}}
 
-    <button {{action "requestNumberInput"}}>Add phone</button>
+    {{#each number in phoneNumbers}}
+      {{select-list value=number.label collection=App.PHONE_NUMBER_LABELS}}
+      {{input type="text" value=number.number placeholder="Phone"}}
+    {{/each}}
+    <button {{action "buildPhoneNumber"}}>Add phone</button>
 
   </form>
+</script>
+
+<script type="text/x-handlebars" data-template-name="components/select-list">
+  {{#each item in collection}}
+    <option {{bind-attr value=item}}>{{item}}</option>
+  {{/each}}
 </script>
 
 <script type="text/x-handlebars" data-template-name="application">
