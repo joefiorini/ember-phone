@@ -71,6 +71,20 @@
   {{notes}}
 </script>
 
+<script type="text/x-handlebars" data-template-name="contact/new">
+  <form {{action "save" on="submit"}}>
+    <button {{action "cancel"}}>Cancel</button>
+    <button class="primary-action">Done</button>
+
+    {{input type="text" value=firstName placeholder="First"}}
+    {{input type="text" value=lastName placeholder="Last"}}
+    {{input type="text" value=company placeholder="Company"}}
+
+    <button {{action "requestNumberInput"}}>Add phone</button>
+
+  </form>
+</script>
+
 <script type="text/x-handlebars" data-template-name="application">
   <div class="main-window">
   {{outlet}}

@@ -57,6 +57,12 @@ App.ContactIndexRoute = Ember.Route.extend({
   }
 });
 
+App.ContactNewRoute = Ember.Route.extend({
+  model: function() {
+    return this.store.createRecord("contact");
+  }
+});
+
 App.ContactIndexController = Ember.ArrayController.extend({
   itemController: "contactShow",
   sortProperties: ["lastName", "firstName"]
@@ -78,6 +84,18 @@ App.ContactShowController = Ember.ObjectController.extend({
       promise: promise
     });
   }.property("phoneNumbers")
+});
+
+App.ContactNewController = Ember.ObjectController.extend({
+  actions: {
+    save: function() {
+      this.get("content").save();
+      this.transitionToRoute("contact.index");
+    },
+    cancel: function() {
+      this.transitionToRoute("contact.index");
+    }
+  }
 });
 
 App.FormattedPhoneNumberController = Ember.ArrayController.extend({
