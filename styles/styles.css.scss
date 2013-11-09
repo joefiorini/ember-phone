@@ -5,7 +5,229 @@ $iphone-height: 1136px * 1.775;
 $ratio: 1.775;
 $scale: 3;
 
+%cf {
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+body {
+  padding: 20px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #333;
+}
+
+a {
+  text-decoration: none;
+}
+
 .main-window {
-  width: $iphone-width / ($ratio * $scale);
-  height: $iphone-height / ($ratio * $scale);
+  position: relative;
+  margin: 0 auto;
+  width: 640px;
+  height: 960px;
+  background: #f7fbfc url("../images/iphone-header.png") no-repeat 0 0;
+}
+
+// Tab bar
+
+.tab-bar {
+  @extend %cf;
+  position: absolute;
+  bottom: 7px;
+  height: 98px;
+  // border-top: 2px solid #b2b2b2;
+}
+
+.tab-bar-item {
+  float: left;
+  padding-top: 20px;
+  height: 98px;
+  width: 128px;
+  font-size: 18px;
+  text-align: center;
+  color: #929292;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+
+  img {
+    margin: 0 auto 7px;
+    display: block;
+  }
+}
+
+// Keypad
+
+.entry {
+  position: absolute;
+  top: 37px;
+  width: 100%;
+  font-weight: 200;
+  text-align: center;
+}
+
+.phone-entry {
+  display: block;
+  overflow: hidden;
+  margin-left: 30px;
+  width: 480px;
+  font-size: 72px;
+  font-weight: 100;
+}
+
+.backspace {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  right: 50px;
+  height: 32px;
+  width: 40px;
+  text-indent: -99999px;
+  border: 0;
+  background: url("../images/backspace.png") no-repeat 0 0;
+}
+
+.add-contacts {
+  font-size: 28px;
+  color: #097eff;
+  border: 0;
+  background-color: #f7fbfc;
+}
+
+.keypad {
+  margin: 0 auto;
+  width: 496px;
+}
+
+.keypad--top {
+  padding-top: 174px;
+}
+
+.keypad-button {
+  padding: 10px 20px;
+  margin-bottom: 12px;
+  margin-left: 39px;
+  height: 136px;
+  width: 136px;
+  font-size: 72px;
+  font-weight: 100;
+  background-color: #fff;
+  border: 3px solid #4a9fc0;
+  border-radius: 68px;
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+}
+
+.call-button {
+  padding: 10px;
+  width: 100%;
+  font-size: 56px;
+  font-weight: normal;
+  color: #fff;
+  background-color: #4cd964;
+  border: 0;
+  border-radius: 10px;
+}
+
+// Contact list
+
+.contact-header {
+  position: relative;
+  height: 215px;
+  border-bottom: 2px solid #b5b5b5;
+}
+
+.contact-list {
+  list-style-type: none;
+  height: 640px;
+  overflow: scroll;
+
+  li {
+    font-size: 34px;
+    border-top: 1px solid #c8c7cc;
+
+    &:last-of-type {
+      border-bottom: 1px solid #c8c7cc;
+    }
+  }
+
+  a {
+    display: block;
+    padding: 24px 0 23px;
+    color: #000;
+  }
+}
+
+// Search form
+
+.form-search {
+  position: absolute;
+  bottom: 0;
+  height: 86px;
+  width: 100%;
+  background-color: #c9c9ce;
+  border-top: 1px solid #7e7e7e;
+}
+
+.search-input {
+  display: block;
+  margin: 15px auto 0;
+  height: 56px;
+  width: 608px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: normal;
+  border: 0;
+  border-radius: 10px;
+}
+
+// Header actions
+
+.header-actions {
+  display: table;
+  position: absolute;
+  bottom: 106px;
+  width: 100%;
+  font-size: 34px;
+}
+
+.header-action-item {
+  display: table-cell;
+  text-align: center;
+  width: 33.33%;
+}
+
+.header-action-item--left {
+  color: #097eff;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.header-action-item--right {
+  text-align: right;
+  padding-right: 30px;
+}
+
+.add-contact-button {
+  padding: 0;
+  font-size: 56px;
+  font-weight: 200;
+  color: #097eff;
+  border: 0;
+  background-color: #fff;
+}
+
+.contact-list-container {
+  overflow: scroll;
+  height: 638px;
 }
