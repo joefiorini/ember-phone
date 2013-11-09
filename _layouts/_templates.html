@@ -3,25 +3,27 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="components/keypad">
-  <div class="row">
-    {{keypad-button number=1 action="numberEntered"}}
-    {{keypad-button number=2 action="numberEntered"}}
-    {{keypad-button number=3 action="numberEntered"}}
-  </div>
-  <div class="row">
-    {{keypad-button number=4 action="numberEntered"}}
-    {{keypad-button number=5 action="numberEntered"}}
-    {{keypad-button number=6 action="numberEntered"}}
-  </div>
-  <div class="row">
-    {{keypad-button number=7 action="numberEntered"}}
-    {{keypad-button number=8 action="numberEntered"}}
-    {{keypad-button number=9 action="numberEntered"}}
-  </div>
-  <div class="row">
-    {{keypad-button number="*" action="numberEntered"}}
-    {{keypad-button number=0 action="numberEntered"}}
-    {{keypad-button number="#" action="numberEntered"}}
+  <div class="keypad keypad--top">
+    <div class="row">
+      {{keypad-button number=1 action="numberEntered"}}
+      {{keypad-button number=2 action="numberEntered"}}
+      {{keypad-button number=3 action="numberEntered"}}
+    </div>
+    <div class="row">
+      {{keypad-button number=4 action="numberEntered"}}
+      {{keypad-button number=5 action="numberEntered"}}
+      {{keypad-button number=6 action="numberEntered"}}
+    </div>
+    <div class="row">
+      {{keypad-button number=7 action="numberEntered"}}
+      {{keypad-button number=8 action="numberEntered"}}
+      {{keypad-button number=9 action="numberEntered"}}
+    </div>
+    <div class="row">
+      {{keypad-button number="*" action="numberEntered"}}
+      {{keypad-button number=0 action="numberEntered"}}
+      {{keypad-button number="#" action="numberEntered"}}
+    </div>
   </div>
 </script>
 
@@ -34,15 +36,30 @@
     </div>
   {{/if}}
   {{keypad action="numberEntered"}}
-  <div class="row">
-    <button {{action placeCall}}>Call</button>
+  <div class="keypad">
+    <div class="row">
+      <button class="call-button" {{action placeCall}}>Call</button>
+    </div>
   </div>
 </script>
 
 <script type="text/x-handlebars" data-template-name="contact/index">
-  {{#link-to "contact.new" tagName="button"}}+{{/link-to}}
+  <div class="contact-header">
+    <div class="header-actions">
+      <span class="header-action-item header-action-item--left">Groups</span>
+      <span class="header-action-item"><strong>All Contacts</strong></span>
+      <span class="header-action-item header-action-item--right">
+        {{#link-to "contact.new" tagName="button" classNames="add-contact-button"}}+{{/link-to}}
+      </span>
+    </div>
+    <div class="search-container">
+      <form class="form-search">
+        <input type="text" class="search-input" placeholder="Search">
+      </form> 
+    </div>
+  </div>
 
-  <ul>
+  <ul class="contact-list">
     {{#each contact in controller}}
     <li>
       {{#link-to "contact.show" contact class="row"}}
@@ -97,11 +114,16 @@
 
 <script type="text/x-handlebars" data-template-name="application">
   <div class="main-window">
-  {{outlet}}
-  </div>
-  <div class="row">
-    {{#link-to "contact"}}Contacts{{/link-to}}
-    {{#link-to "call.new"}}Keypad{{/link-to}}
+    {{outlet}}
+    <div class="tab-bar">
+      <div class="row">
+        <span class="tab-bar-item tab-bar-item--favorites"><img src="images/favorites.png"> Favorites</span>
+        <span class="tab-bar-item tab-bar-item--recents"><img src="images/recents.png"> Recents</span>
+        {{#link-to "contact" classNames="tab-bar-item tab-bar-item--contacts"}}<img src="images/contacts.png"> Contacts{{/link-to}}
+        {{#link-to "call.new" classNames="tab-bar-item tab-bar-item--keypad"}}<img src="images/keypad.png"> Keypad{{/link-to}}
+        <span class="tab-bar-item tab-bar-item--voicemail"><img src="images/voicemail.png"> Voicemail</span>
+      </div>
+    </div>
   </div>
 </script>
 
