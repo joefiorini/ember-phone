@@ -66,6 +66,24 @@ a {
 
 // Keypad
 
+.entry {
+  position: relative;
+  padding-top: 48px;
+  text-align: center;
+  font-size: 72px;
+  font-weight: 100;
+}
+
+.backspace {
+  position: absolute;
+  right: 0;
+  top: 74px;
+}
+
+button {
+  font-size: 18px;
+}
+
 .keypad {
   margin: 0 auto;
   width: 496px;

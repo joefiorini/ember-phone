@@ -3,7 +3,7 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="components/keypad">
-  <div class="keypad keypad--top">
+  <div class="keypad">
     <div class="row">
       {{keypad-button number=1 action="numberEntered"}}
       {{keypad-button number=2 action="numberEntered"}}
@@ -28,13 +28,15 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="call/new">
-  {{phoneNumber}}
-  {{#if hasEntries}}
-    <button {{action removeNumber}}><-</button>
-    <div class="row">
-      <button {{action addToContacts}}>Add to Contacts</button>
-    </div>
-  {{/if}}
+  <div class="keypad entry">
+    {{phoneNumber}}
+    {{#if hasEntries}}
+      <button class="backspace" {{action removeNumber}}><-</button>
+      <div class="row">
+        <button {{action addToContacts}}>Add to Contacts</button>
+      </div>
+    {{/if}}
+  </div>
   {{keypad action="numberEntered"}}
   <div class="keypad">
     <div class="row">
