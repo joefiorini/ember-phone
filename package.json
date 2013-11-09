@@ -1,0 +1,12 @@
+{
+  "name": "fr-single-item-view",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-contrib-watch": "~0.5.2",
+    "grunt-contrib-sass": "~0.3.0",
+    "grunt-contrib-connect": "~0.3.0",
+    "load-grunt-tasks": "~0.1.0"
+  }
+}
