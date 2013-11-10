@@ -373,7 +373,7 @@ a {
   margin: 0 auto;
   width: 640px;
   height: 960px;
-  background: white url("../images/iphone-header.png") no-repeat 0 0;
+  background: #f7fbfc url("../images/iphone-header.png") no-repeat 0 0;
 }
 
 .tab-bar {
@@ -399,9 +399,18 @@ a {
 }
 
 .entry {
-  position: relative;
-  padding-top: 48px;
+  position: absolute;
+  top: 37px;
+  width: 100%;
+  font-weight: 200;
   text-align: center;
+}
+
+.phone-entry {
+  display: block;
+  overflow: hidden;
+  margin-left: 30px;
+  width: 480px;
   font-size: 72px;
   font-weight: 100;
 }
@@ -409,11 +418,20 @@ a {
 .backspace {
   position: absolute;
   right: 0;
-  top: 74px;
+  top: 35px;
+  right: 50px;
+  height: 32px;
+  width: 40px;
+  text-indent: -99999px;
+  border: 0;
+  background: url("../images/backspace.png") no-repeat 0 0;
 }
 
-button {
-  font-size: 18px;
+.add-contacts {
+  font-size: 28px;
+  color: #097eff;
+  border: 0;
+  background-color: #f7fbfc;
 }
 
 .keypad {
@@ -527,4 +545,9 @@ button {
   color: #097eff;
   border: 0;
   background-color: #fff;
+}
+
+.contact-list-container {
+  overflow: scroll;
+  height: 638px;
 }
