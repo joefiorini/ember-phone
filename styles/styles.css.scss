@@ -37,6 +37,17 @@ a {
   background: #f7fbfc url("../images/iphone-header.png") no-repeat 0 0;
 }
 
+header,footer {
+  a {
+    color: #929292;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  text-align: center;
+  color: #f7fbfc;
+}
+
 // Tab bar
 
 .tab-bar {
