@@ -149,6 +149,8 @@ a {
 
 .contact-list {
   list-style-type: none;
+  height: 640px;
+  overflow: scroll;
 
   li {
     font-size: 34px;
