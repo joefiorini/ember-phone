@@ -149,6 +149,7 @@ header,footer {
   border: 3px solid #4a9fc0;
   border-radius: 68px;
   -webkit-touch-callout: none !important;
+  -webkit-user-select: none;
 
   &:first-of-type {
     margin-left: 0;
