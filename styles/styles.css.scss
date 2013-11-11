@@ -275,14 +275,16 @@ button {
 
 .contact-label {
   display: block;
+  color: #097eff;
 }
 
 .phone-container {
   margin-top: 45px;
+  background: url("../images/phone.png") no-repeat 493px 50%;
 }
 
 .phone-number {
-  font-size: 24px;
+  font-size: 34px;
   padding-bottom: 20px;
   border-bottom: 1px solid #c9c9c9;
 }
@@ -396,4 +398,8 @@ button {
    border-radius: 0;
    height: 34px;
    -webkit-appearance: none;
+
+   &:focus {
+     outline: 0;
+   }
  }
