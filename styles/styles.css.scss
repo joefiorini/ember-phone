@@ -27,12 +27,6 @@ body {
 
 a {
   text-decoration: none;
-  &:visited {
-    color: inherit;
-  }
-  &:link {
-    color: inherit;
-  }
 }
 
 button {
@@ -145,7 +139,7 @@ header,footer {
   width: 136px;
   font-size: 72px;
   font-weight: 100;
-  background-color: #fff;
+  background-color: transparent;
   border: 3px solid #4a9fc0;
   border-radius: 68px;
   -webkit-touch-callout: none !important;
@@ -235,6 +229,7 @@ header,footer {
 .header-action-item--right {
   color: #097eff;
 
+  a,
   button {
     color: #097eff;
   }
@@ -242,17 +237,21 @@ header,footer {
 
 .header-action-item--left {
   text-align: left;
-  padding-left: 30px;
+  padding-left: 17px;
 }
 
 .header-action-item--right {
   text-align: right;
-  padding-right: 30px;
+  padding-right: 17px;
+}
+
+.back-link {
+  padding-left: 38px;
+  background: url("../images/back-arrow.png") no-repeat 0 50%;
 }
 
 .add-contact-button {
-  padding: 0 30px 0 0;
-  margin: 0;
+  margin: 0 15px 0 0;
   height: 31px;
   width: 31px;
   text-indent: -99999px;
@@ -261,29 +260,31 @@ header,footer {
 
 // Contact item
 
-.contact-container {
-  padding: 20px 0 0 74px;
+.contact-inner {
+  padding: 0 0 0 74px;
 }
 
 .contact-name {
   font-size: 34px;
 }
 
-.contact-company, .contact-label {
-  font-size: 18px;
+.contact-company, 
+.contact-label {
+  font-size: 26px;
 }
 
 .contact-label {
-  color: -webkit-link;
   display: block;
+  color: #097eff;
 }
 
 .phone-container {
   margin-top: 45px;
+  background: url("../images/phone.png") no-repeat 493px 50%;
 }
 
 .phone-number {
-  font-size: 24px;
+  font-size: 34px;
   padding-bottom: 20px;
   border-bottom: 1px solid #c9c9c9;
 }
@@ -301,7 +302,6 @@ header,footer {
 
   input {
     display: block;
-    margin-bottom: 46px;
     font-size: 34px;
     font-weight: 200;
     border: 0;
@@ -323,6 +323,10 @@ header,footer {
 
 .contact-info-inputs {
   width: 393px;
+
+  input {
+    margin-bottom: 46px;
+  }
 }
 
 .add-photo {
@@ -354,3 +358,48 @@ header,footer {
   background: url("../images/add.png") no-repeat 0 50%;
   border-bottom: 1px solid #c9c9c9;
 }
+
+.phone-input {
+  @extend %cf;
+  border-bottom: 1px solid #c9c9c9;
+}
+
+.phone-input--left {
+  padding: 20px 0 20px 70px;
+  width: 196px;
+  float: left;
+  font-size: 26px;
+  font-weight: 200;
+  text-align: left;
+  text-transform: lowercase;
+  color: #097eff;
+  background: url("../images/remove.png") no-repeat 0 50%;
+  border-right: 1px solid #c9c9c9;
+}
+
+.phone-input--right {
+  margin-bottom: 0;
+  float: left;
+
+  input {
+    padding: 15px 0 16px 27px;
+    width: 322px;
+  }
+}
+
+.styled-select select {
+   background: transparent url("../images/select-arrow.png") no-repeat 100% 50%;
+   color: #097eff;
+   width: 183px;
+   font-size: 26px;
+   font-weight: 200;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
+
+   &:focus {
+     outline: 0;
+   }
+ }

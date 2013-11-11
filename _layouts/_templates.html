@@ -76,7 +76,7 @@
   <div class="page-header">
     <div class="header-actions">
       <span class="header-action-item header-action-item--left">
-        {{#link-to "contact.index"}}< All Contacts{{/link-to}}
+        {{#link-to "contact.index" classNames="back-link"}}All Contacts{{/link-to}}
       </span>
       <span class="header-action-item header-action-item--right">
         <a href="#">Edit</a>
@@ -84,22 +84,24 @@
     </div>
   </div>
 
-    <div class="contact-container">
-      <div class="contact-name">{{firstName}} {{lastName}}</div>
-      {{#if company}}
-      <div class="contact-company">{{company}}</div>
-      {{/if}}
+    <div class="contact-form-container">
+      <div class="contact-inner">
+        <div class="contact-name"><strong>{{firstName}} {{lastName}}</strong></div>
+        {{#if company}}
+        <div class="contact-company">{{company}}</div>
+        {{/if}}
 
-      <div class="phone-container">
-      {{#each number in formattedPhoneNumbers}}
-        <div class="contact-label">{{number.label}}</div>
-        <div class="phone-number">{{number.stringValue}}</div>
-      {{/each}}
+        <div class="phone-container">
+        {{#each number in formattedPhoneNumbers}}
+          <div class="contact-label">{{number.label}}</div>
+          <div class="phone-number">{{number.stringValue}}</div>
+        {{/each}}
+        </div>
       </div>
-
     </div>
   {{notes}}
 </script>
+
 
 <script type="text/x-handlebars" data-template-name="contact/new">
   <form {{action "save" on="submit"}}>
@@ -128,8 +130,16 @@
 
       <div class="add-phone-container">
         {{#each number in phoneNumbers}}
-          {{select-list value=number.label collection=App.PHONE_NUMBER_LABELS}}
-          {{input type="text" value=number.number placeholder="Phone"}}
+          <div class="phone-input">
+            <div class="phone-input--left">
+              <div class="styled-select">
+                {{select-list value=number.label collection=App.PHONE_NUMBER_LABELS}}
+              </div>
+            </div>
+            <div class="phone-input--right">
+              {{input type="text" value=number.number placeholder="Phone"}}
+            </div>
+          </div>
         {{/each}}
         <button class="add-phone-button" {{action "buildPhoneNumber"}}>Add phone</button>
       </div>
@@ -157,4 +167,9 @@
       </div>
     </div>
   </div>
+
+  <footer>
+    <p>Ember functionality by <a href="http://joefiorini.com">Joe Fiorini</a>; styling by the talented <a href="http://braddielman.com">Brad Dielman</a></p>
+    <p><a href="http://github.com/joefiorini/ember-phone">View the source</a> on Github</p>
+  </footer>
 </script>
