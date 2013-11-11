@@ -84,20 +84,20 @@
     </div>
   </div>
 
-  <h2>{{firstName}} {{lastName}}</h2>
-  {{#if company}}
-  <h3>{{company}}</h3>
-  {{/if}}
+    <div class="contact-container">
+      <div class="contact-name">{{firstName}} {{lastName}}</div>
+      {{#if company}}
+      <div class="contact-company">{{company}}</div>
+      {{/if}}
 
-  <ul>
-  {{#each number in formattedPhoneNumbers}}
-    <li>
-      <span class="label">{{number.label}}</span>
-      <span class="main">{{number.stringValue}}</span>
-    </li>
-  {{/each}}
-  </ul>
+      <div class="phone-container">
+      {{#each number in formattedPhoneNumbers}}
+        <div class="contact-label">{{number.label}}</div>
+        <div class="phone-number">{{number.stringValue}}</div>
+      {{/each}}
+      </div>
 
+    </div>
   {{notes}}
 </script>
 
