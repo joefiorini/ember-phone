@@ -2,6 +2,9 @@
 <html>
 <head>
 <meta name="description" content="iOS Phone.app written in Ember.js" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width; initial-scale=1.0;">
 <meta charset="utf-8">
 <title>Ember Starter Kit</title>
   <link rel="stylesheet" href="styles/styles.css">
@@ -10,6 +13,10 @@
 <body>
 
   {{ render "_layouts/_touch-tones.html" }}
+
+  <header>
+    <p><a href="http://d-i.co/contact.html">Hire us to build your Ember app!</a></p>
+  </header>
 
   {% block content %}{% endblock %}
 

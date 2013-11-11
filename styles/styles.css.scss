@@ -27,6 +27,12 @@ body {
 
 a {
   text-decoration: none;
+  &:visited {
+    color: inherit;
+  }
+  &:link {
+    color: inherit;
+  }
 }
 
 button {
@@ -42,6 +48,17 @@ button {
   width: 640px;
   height: 960px;
   background: #f7fbfc url("../images/iphone-header.png") no-repeat 0 0;
+}
+
+header,footer {
+  a {
+    color: #929292;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  text-align: center;
+  color: #f7fbfc;
 }
 
 .row {
@@ -131,6 +148,7 @@ button {
   background-color: #fff;
   border: 3px solid #4a9fc0;
   border-radius: 68px;
+  -webkit-touch-callout: none !important;
 
   &:first-of-type {
     margin-left: 0;
