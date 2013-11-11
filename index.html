@@ -2,145 +2,172 @@
 <html>
 <head>
 <meta name="description" content="iOS Phone.app written in Ember.js" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width; initial-scale=1.0;">
 <meta charset="utf-8">
 <title>Ember Starter Kit</title>
   <link rel="stylesheet" href="styles/styles.css">
-    <script type="text/x-handlebars" data-template-name="components/keypad-button">
-    {{number}}
-  </script>
+  <script type="text/x-handlebars" data-template-name="components/keypad-button">
+  {{number}}
+</script>
 
-  <script type="text/x-handlebars" data-template-name="components/keypad">
-    <div class="keypad keypad--top">
-      <div class="row">
-        {{keypad-button number=1 action="numberEntered"}}
-        {{keypad-button number=2 action="numberEntered"}}
-        {{keypad-button number=3 action="numberEntered"}}
-      </div>
-      <div class="row">
-        {{keypad-button number=4 action="numberEntered"}}
-        {{keypad-button number=5 action="numberEntered"}}
-        {{keypad-button number=6 action="numberEntered"}}
-      </div>
-      <div class="row">
-        {{keypad-button number=7 action="numberEntered"}}
-        {{keypad-button number=8 action="numberEntered"}}
-        {{keypad-button number=9 action="numberEntered"}}
-      </div>
-      <div class="row">
-        {{keypad-button number="*" action="numberEntered"}}
-        {{keypad-button number=0 action="numberEntered"}}
-        {{keypad-button number="#" action="numberEntered"}}
-      </div>
+<script type="text/x-handlebars" data-template-name="components/keypad">
+  <div class="keypad keypad--top">
+    <div class="row">
+      {{keypad-button number=1 action="numberEntered"}}
+      {{keypad-button number=2 action="numberEntered"}}
+      {{keypad-button number=3 action="numberEntered"}}
     </div>
-  </script>
+    <div class="row">
+      {{keypad-button number=4 action="numberEntered"}}
+      {{keypad-button number=5 action="numberEntered"}}
+      {{keypad-button number=6 action="numberEntered"}}
+    </div>
+    <div class="row">
+      {{keypad-button number=7 action="numberEntered"}}
+      {{keypad-button number=8 action="numberEntered"}}
+      {{keypad-button number=9 action="numberEntered"}}
+    </div>
+    <div class="row">
+      {{keypad-button number="*" action="numberEntered"}}
+      {{keypad-button number=0 action="numberEntered"}}
+      {{keypad-button number="#" action="numberEntered"}}
+    </div>
+  </div>
+</script>
 
-  <script type="text/x-handlebars" data-template-name="call/new">
-    <div class="entry">
-      <span class="phone-entry">{{phoneNumber}}</span>
-      {{#if hasEntries}}
-        <button class="backspace" {{action removeNumber}}><-</button>
-        <div class="row">
-          <button class="add-contacts" {{action addToContacts}}>+ Add to Contacts</button>
-        </div>
+<script type="text/x-handlebars" data-template-name="call/new">
+  <div class="entry">
+    <span class="phone-entry">{{phoneNumber}}</span>
+    {{#if hasEntries}}
+      <button class="backspace" {{action removeNumber}}><-</button>
+      <div class="row">
+        <button class="add-contacts" {{action addToContacts}}>+ Add to Contacts</button>
+      </div>
+    {{/if}}
+  </div>
+  {{keypad action="numberEntered"}}
+  <div class="keypad">
+    <div class="row">
+      <button class="call-button" {{action placeCall}}>Call</button>
+    </div>
+  </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="contact/index">
+  <div class="page-header">
+    <div class="header-actions">
+      <span class="header-action-item header-action-item--left">Groups</span>
+      <span class="header-action-item"><strong>All Contacts</strong></span>
+      <span class="header-action-item header-action-item--right">
+        {{#link-to "contact.new" tagName="button" classNames="add-contact-button"}}+{{/link-to}}
+      </span>
+    </div>
+    <div class="search-container">
+      <form class="form-search">
+        <input type="text" class="search-input" placeholder="Search">
+      </form> 
+    </div>
+  </div>
+
+  <ul class="contact-list">
+    {{#each contact in controller}}
+    <li>
+      {{#link-to "contact.show" contact class="row"}}
+      <span>{{contact.firstName}} <strong>{{contact.lastName}}</strong></span>
+      {{/link-to}}
+    </li>
+    {{/each}}
+  </ul>
+</script>
+
+<script type="text/x-handlebars" data-template-name="contact/show">
+  <div class="page-header">
+    <div class="header-actions">
+      <span class="header-action-item header-action-item--left">
+        {{#link-to "contact.index"}}< All Contacts{{/link-to}}
+      </span>
+      <span class="header-action-item header-action-item--right">
+        <a href="#">Edit</a>
+      </span>
+    </div>
+  </div>
+
+    <div class="contact-container">
+      <div class="contact-name">{{firstName}} {{lastName}}</div>
+      {{#if company}}
+      <div class="contact-company">{{company}}</div>
       {{/if}}
-    </div>
-    {{keypad action="numberEntered"}}
-    <div class="keypad">
-      <div class="row">
-        <button class="call-button" {{action placeCall}}>Call</button>
-      </div>
-    </div>
-  </script>
 
-  <script type="text/x-handlebars" data-template-name="contact/index">
-    <div class="contact-header">
+      <div class="phone-container">
+      {{#each number in formattedPhoneNumbers}}
+        <div class="contact-label">{{number.label}}</div>
+        <div class="phone-number">{{number.stringValue}}</div>
+      {{/each}}
+      </div>
+
+    </div>
+  {{notes}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="contact/new">
+  <form {{action "save" on="submit"}}>
+    <div class="page-header">
       <div class="header-actions">
-        <span class="header-action-item header-action-item--left">Groups</span>
-        <span class="header-action-item"><strong>All Contacts</strong></span>
+        <span class="header-action-item header-action-item--left">
+          <button {{action "cancel"}}>Cancel</button>
+        </span>
+        <span class="header-action-item"><strong>New Contact</strong></span>
         <span class="header-action-item header-action-item--right">
-          {{#link-to "contact.new" tagName="button" classNames="add-contact-button"}}+{{/link-to}}
+          <button class="primary-action">Done</button>
         </span>
       </div>
-      <div class="search-container">
-        <form class="form-search">
-          <input type="text" class="search-input" placeholder="Search">
-        </form> 
-      </div>
     </div>
-
-    <ul class="contact-list">
-      {{#each contact in controller}}
-      <li>
-        {{#link-to "contact.show" contact class="row"}}
-        <span>{{contact.firstName}} <strong>{{contact.lastName}}</strong></span>
-        {{/link-to}}
-      </li>
-      {{/each}}
-    </ul>
-  </script>
-
-  <script type="text/x-handlebars" data-template-name="contact/show">
-    <h2>{{firstName}} {{lastName}}</h2>
-    {{#if company}}
-    <h3>{{company}}</h3>
-    {{/if}}
-
-    <ul>
-    {{#each number in formattedPhoneNumbers}}
-      <li>
-        <span class="label">{{number.label}}</span>
-        <span class="main">{{number.stringValue}}</span>
-      </li>
-    {{/each}}
-    </ul>
-
-    {{notes}}
-  </script>
-
-  <script type="text/x-handlebars" data-template-name="contact/new">
-    <form {{action "save" on="submit"}}>
-      <button {{action "cancel"}}>Cancel</button>
-      <button class="primary-action">Done</button>
-
-      {{input type="text" value=firstName placeholder="First"}}
-      {{input type="text" value=lastName placeholder="Last"}}
-      {{input type="text" value=company placeholder="Company"}}
-
-      {{#each number in phoneNumbers}}
-        {{select-list value=number.label collection=App.PHONE_NUMBER_LABELS}}
-        {{input type="text" value=number.number placeholder="Phone"}}
-      {{/each}}
-      <button {{action "buildPhoneNumber"}}>Add phone</button>
-
-    </form>
-  </script>
-
-  <script type="text/x-handlebars" data-template-name="components/select-list">
-    {{#each item in collection}}
-      <option {{bind-attr value=item}}>{{item}}</option>
-    {{/each}}
-  </script>
-
-  <script type="text/x-handlebars" data-template-name="application">
-    <div class="main-window">
-      {{outlet}}
-      <div class="tab-bar">
-        <div class="row">
-          <span class="tab-bar-item tab-bar-item--favorites"><img src="images/favorites.png"> Favorites</span>
-          <span class="tab-bar-item tab-bar-item--recents"><img src="images/recents.png"> Recents</span>
-          {{#link-to "contact" classNames="tab-bar-item tab-bar-item--contacts"}}<img src="images/contacts.png"> Contacts{{/link-to}}
-          {{#link-to "call.new" classNames="tab-bar-item tab-bar-item--keypad"}}<img src="images/keypad.png"> Keypad{{/link-to}}
-          <span class="tab-bar-item tab-bar-item--voicemail"><img src="images/voicemail.png"> Voicemail</span>
+    <div class="contact-form-container">
+      <div class="row">
+        <div class="contact-photo-input">
+          <span class="add-photo">Add Photo</span>
+        </div>
+        <div class="contact-info-inputs">
+          {{input type="text" value=firstName placeholder="First"}}
+          {{input type="text" value=lastName placeholder="Last"}}
+          {{input type="text" value=company placeholder="Company"}}
         </div>
       </div>
+
+      <div class="add-phone-container">
+        {{#each number in phoneNumbers}}
+          {{select-list value=number.label collection=App.PHONE_NUMBER_LABELS}}
+          {{input type="text" value=number.number placeholder="Phone"}}
+        {{/each}}
+        <button class="add-phone-button" {{action "buildPhoneNumber"}}>Add phone</button>
+      </div>
     </div>
 
-    <footer>
-      <p>Ember functionality by <a href="http://joefiorini.com">Joe Fiorini</a>; styling by the talented <a href="http://braddielman.com">Brad Dielman</a></p>
-      <p><a href="http://github.com/joefiorini/ember-phone">View the source</a> on Github</p>
-    </footer>
+  </form>
+</script>
 
-  </script>
+<script type="text/x-handlebars" data-template-name="components/select-list">
+  {{#each item in collection}}
+    <option {{bind-attr value=item}}>{{item}}</option>
+  {{/each}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="application">
+  <div class="main-window">
+    {{outlet}}
+    <div class="tab-bar">
+      <div class="row">
+        <span class="tab-bar-item tab-bar-item--favorites"><img src="images/favorites.png"> Favorites</span>
+        <span class="tab-bar-item tab-bar-item--recents"><img src="images/recents.png"> Recents</span>
+        {{#link-to "contact" classNames="tab-bar-item tab-bar-item--contacts"}}<img src="images/contacts.png"> Contacts{{/link-to}}
+        {{#link-to "call.new" classNames="tab-bar-item tab-bar-item--keypad"}}<img src="images/keypad.png"> Keypad{{/link-to}}
+        <span class="tab-bar-item tab-bar-item--voicemail"><img src="images/voicemail.png"> Voicemail</span>
+      </div>
+    </div>
+  </div>
+</script>
 
 </head>
 <body>
