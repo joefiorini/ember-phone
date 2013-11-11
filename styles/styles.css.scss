@@ -240,6 +240,35 @@ button {
   background: url("../images/plus.png") no-repeat 0 0;
 }
 
+// Contact item
+
+.contact-container {
+  padding: 20px 0 0 74px;
+}
+
+.contact-name {
+  font-size: 34px;
+}
+
+.contact-company, .contact-label {
+  font-size: 18px;
+}
+
+.contact-label {
+  color: -webkit-link;
+  display: block;
+}
+
+.phone-container {
+  margin-top: 45px;
+}
+
+.phone-number {
+  font-size: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #c9c9c9;
+}
+
 // Contact form
 
 .contact-form-container {

@@ -73,20 +73,31 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="contact/show">
-  <h2>{{firstName}} {{lastName}}</h2>
-  {{#if company}}
-  <h3>{{company}}</h3>
-  {{/if}}
+  <div class="page-header">
+    <div class="header-actions">
+      <span class="header-action-item header-action-item--left">
+        {{#link-to "contact.index"}}< All Contacts{{/link-to}}
+      </span>
+      <span class="header-action-item header-action-item--right">
+        <a href="#">Edit</a>
+      </span>
+    </div>
+  </div>
 
-  <ul>
-  {{#each number in formattedPhoneNumbers}}
-    <li>
-      <span class="label">{{number.label}}</span>
-      <span class="main">{{number.stringValue}}</span>
-    </li>
-  {{/each}}
-  </ul>
+    <div class="contact-container">
+      <div class="contact-name">{{firstName}} {{lastName}}</div>
+      {{#if company}}
+      <div class="contact-company">{{company}}</div>
+      {{/if}}
 
+      <div class="phone-container">
+      {{#each number in formattedPhoneNumbers}}
+        <div class="contact-label">{{number.label}}</div>
+        <div class="phone-number">{{number.stringValue}}</div>
+      {{/each}}
+      </div>
+
+    </div>
   {{notes}}
 </script>
 

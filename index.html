@@ -10,7 +10,7 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="components/keypad">
-    <div class="keypad keypad--top">
+    <div class="keypad">
       <div class="row">
         {{keypad-button number=1 action="numberEntered"}}
         {{keypad-button number=2 action="numberEntered"}}
@@ -35,12 +35,12 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="call/new">
-    <div class="entry">
-      <span class="phone-entry">{{phoneNumber}}</span>
+    <div class="keypad entry">
+      {{phoneNumber}}
       {{#if hasEntries}}
         <button class="backspace" {{action removeNumber}}><-</button>
         <div class="row">
-          <button class="add-contacts" {{action addToContacts}}>+ Add to Contacts</button>
+          <button {{action addToContacts}}>Add to Contacts</button>
         </div>
       {{/if}}
     </div>
@@ -53,7 +53,7 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="contact/index">
-    <div class="page-header">
+    <div class="contact-header">
       <div class="header-actions">
         <span class="header-action-item header-action-item--left">Groups</span>
         <span class="header-action-item"><strong>All Contacts</strong></span>
@@ -80,56 +80,48 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="contact/show">
-    <h2>{{firstName}} {{lastName}}</h2>
-    {{#if company}}
-    <h3>{{company}}</h3>
-    {{/if}}
+    <div class="page-header">
+      <div class="header-actions">
+        <span class="header-action-item header-action-item--left">
+          {{#link-to "contact.index"}}< All Contacts{{/link-to}}
+        </span>
+        <span class="header-action-item header-action-item--right">
+          <a href="#">Edit</a>
+        </span>
+      </div>
+    </div>
 
-    <ul>
-    {{#each number in formattedPhoneNumbers}}
-      <li>
-        <span class="label">{{number.label}}</span>
-        <span class="main">{{number.stringValue}}</span>
-      </li>
-    {{/each}}
-    </ul>
+      <div class="contact-container">
+        <div class="contact-name">{{firstName}} {{lastName}}</div>
+        {{#if company}}
+        <div class="contact-company">{{company}}</div>
+        {{/if}}
 
+        <div class="phone-container">
+        {{#each number in formattedPhoneNumbers}}
+          <div class="contact-label">{{number.label}}</div>
+          <div class="phone-number">{{number.stringValue}}</div>
+        {{/each}}
+        </div>
+
+      </div>
     {{notes}}
   </script>
 
   <script type="text/x-handlebars" data-template-name="contact/new">
     <form {{action "save" on="submit"}}>
-      <div class="page-header">
-        <div class="header-actions">
-          <span class="header-action-item header-action-item--left">
-            <button {{action "cancel"}}>Cancel</button>
-          </span>
-          <span class="header-action-item"><strong>New Contact</strong></span>
-          <span class="header-action-item header-action-item--right">
-            <button class="primary-action">Done</button>
-          </span>
-        </div>
-      </div>
-      <div class="contact-form-container">
-        <div class="row">
-          <div class="contact-photo-input">
-            <span class="add-photo">Add Photo</span>
-          </div>
-          <div class="contact-info-inputs">
-            {{input type="text" value=firstName placeholder="First"}}
-            {{input type="text" value=lastName placeholder="Last"}}
-            {{input type="text" value=company placeholder="Company"}}
-          </div>
-        </div>
+      <button {{action "cancel"}}>Cancel</button>
+      <button class="primary-action">Done</button>
 
-        <div class="add-phone-container">
-          {{#each number in phoneNumbers}}
-            {{select-list value=number.label collection=App.PHONE_NUMBER_LABELS}}
-            {{input type="text" value=number.number placeholder="Phone"}}
-          {{/each}}
-          <button class="add-phone-button" {{action "buildPhoneNumber"}}>Add phone</button>
-        </div>
-      </div>
+      {{input type="text" value=firstName placeholder="First"}}
+      {{input type="text" value=lastName placeholder="Last"}}
+      {{input type="text" value=company placeholder="Company"}}
+
+      {{#each number in phoneNumbers}}
+        {{select-list value=number.label collection=App.PHONE_NUMBER_LABELS}}
+        {{input type="text" value=number.number placeholder="Phone"}}
+      {{/each}}
+      <button {{action "buildPhoneNumber"}}>Add phone</button>
 
     </form>
   </script>
@@ -154,6 +146,7 @@
       </div>
     </div>
   </script>
+
 </head>
 <body>
 
