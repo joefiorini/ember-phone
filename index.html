@@ -53,7 +53,7 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="contact/index">
-    <div class="contact-header">
+    <div class="page-header">
       <div class="header-actions">
         <span class="header-action-item header-action-item--left">Groups</span>
         <span class="header-action-item"><strong>All Contacts</strong></span>
@@ -99,18 +99,37 @@
 
   <script type="text/x-handlebars" data-template-name="contact/new">
     <form {{action "save" on="submit"}}>
-      <button {{action "cancel"}}>Cancel</button>
-      <button class="primary-action">Done</button>
+      <div class="page-header">
+        <div class="header-actions">
+          <span class="header-action-item header-action-item--left">
+            <button {{action "cancel"}}>Cancel</button>
+          </span>
+          <span class="header-action-item"><strong>New Contact</strong></span>
+          <span class="header-action-item header-action-item--right">
+            <button class="primary-action">Done</button>
+          </span>
+        </div>
+      </div>
+      <div class="contact-form-container">
+        <div class="row">
+          <div class="contact-photo-input">
+            <span class="add-photo">Add Photo</span>
+          </div>
+          <div class="contact-info-inputs">
+            {{input type="text" value=firstName placeholder="First"}}
+            {{input type="text" value=lastName placeholder="Last"}}
+            {{input type="text" value=company placeholder="Company"}}
+          </div>
+        </div>
 
-      {{input type="text" value=firstName placeholder="First"}}
-      {{input type="text" value=lastName placeholder="Last"}}
-      {{input type="text" value=company placeholder="Company"}}
-
-      {{#each number in phoneNumbers}}
-        {{select-list value=number.label collection=App.PHONE_NUMBER_LABELS}}
-        {{input type="text" value=number.number placeholder="Phone"}}
-      {{/each}}
-      <button {{action "buildPhoneNumber"}}>Add phone</button>
+        <div class="add-phone-container">
+          {{#each number in phoneNumbers}}
+            {{select-list value=number.label collection=App.PHONE_NUMBER_LABELS}}
+            {{input type="text" value=number.number placeholder="Phone"}}
+          {{/each}}
+          <button class="add-phone-button" {{action "buildPhoneNumber"}}>Add phone</button>
+        </div>
+      </div>
 
     </form>
   </script>
