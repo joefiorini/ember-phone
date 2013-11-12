@@ -41,7 +41,7 @@ button {
   margin: 0 auto;
   width: 640px;
   height: 960px;
-  background: #f7fbfc url("../images/iphone-header.png") no-repeat 0 0;
+  background: #f7fbfc url("http://files.densitypop.com/ember-phone/iphone-header.png") no-repeat 0 0;
 }
 
 header,footer {
@@ -113,7 +113,7 @@ header,footer {
   height: 32px;
   width: 40px;
   text-indent: -99999px;
-  background: url("../images/backspace.png") no-repeat 0 0;
+  background: url("http://files.densitypop.com/ember-phone/backspace.png") no-repeat 0 0;
 }
 
 .add-contacts {
@@ -247,7 +247,7 @@ header,footer {
 
 .back-link {
   padding-left: 38px;
-  background: url("../images/back-arrow.png") no-repeat 0 50%;
+  background: url("http://files.densitypop.com/ember-phone/back-arrow.png") no-repeat 0 50%;
 }
 
 .add-contact-button {
@@ -255,7 +255,7 @@ header,footer {
   height: 31px;
   width: 31px;
   text-indent: -99999px;
-  background: url("../images/plus.png") no-repeat 0 0;
+  background: url("http://files.densitypop.com/ember-phone/plus.png") no-repeat 0 0;
 }
 
 // Contact item
@@ -280,7 +280,7 @@ header,footer {
 
 .phone-container {
   margin-top: 45px;
-  background: url("../images/phone.png") no-repeat 493px 50%;
+  background: url("http://files.densitypop.com/ember-phone/phone.png") no-repeat 493px 50%;
 }
 
 .phone-number {
@@ -355,7 +355,7 @@ header,footer {
   text-align: left;
   text-transform: lowercase;
   color: #097eff;
-  background: url("../images/add.png") no-repeat 0 50%;
+  background: url("http://files.densitypop.com/ember-phone/add.png") no-repeat 0 50%;
   border-bottom: 1px solid #c9c9c9;
 }
 
@@ -373,7 +373,7 @@ header,footer {
   text-align: left;
   text-transform: lowercase;
   color: #097eff;
-  background: url("../images/remove.png") no-repeat 0 50%;
+  background: url("http://files.densitypop.com/ember-phone/remove.png") no-repeat 0 50%;
   border-right: 1px solid #c9c9c9;
 }
 
@@ -388,7 +388,7 @@ header,footer {
 }
 
 .styled-select select {
-   background: transparent url("../images/select-arrow.png") no-repeat 100% 50%;
+   background: transparent url("http://files.densitypop.com/ember-phone/select-arrow.png") no-repeat 100% 50%;
    color: #097eff;
    width: 183px;
    font-size: 26px;
